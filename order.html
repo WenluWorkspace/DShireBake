@@ -6,7 +6,7 @@
 <title>Order Online — Devonshire Bakery</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --slate: #4A6577;
@@ -52,7 +52,7 @@
   }
   .back-link:hover{ color: var(--gold-bright); }
   .brand-mini{
-    font-family:'Fraunces', serif;
+    font-family:'Playfair Display', serif;
     color: var(--cream);
     font-size: 1.05rem;
     text-align:center;
@@ -109,7 +109,7 @@
     font-weight:600;
   }
   .page-intro h1{
-    font-family:'Fraunces', serif;
+    font-family:'Playfair Display', serif;
     font-weight:500;
     font-size: clamp(1.7rem, 3.4vw, 2.4rem);
     margin-top: 8px;
@@ -159,7 +159,7 @@
   main{ padding: 8px clamp(18px,5vw,48px) 0; max-width: 980px; }
   .category-section{ padding-top: 38px; scroll-margin-top: 150px; }
   .category-section h2{
-    font-family:'Fraunces', serif;
+    font-family:'Playfair Display', serif;
     font-weight:500;
     font-size: 1.5rem;
     margin-bottom: 4px;
@@ -287,7 +287,7 @@
     border-bottom: 1px solid var(--line);
   }
   .basket-head h3{
-    font-family:'Fraunces', serif;
+    font-family:'Playfair Display', serif;
     font-weight:500;
     font-size: 1.2rem;
   }
@@ -378,7 +378,7 @@
     text-align:center;
   }
   .modal-box h3{
-    font-family:'Fraunces', serif;
+    font-family:'Playfair Display', serif;
     font-size: 1.3rem;
     margin-bottom: 10px;
   }
@@ -422,7 +422,7 @@
 <body>
 
 <header>
-  <a href="devonshire-bakery-homepage.html" class="back-link">&larr; Back to home</a>
+  <a href="index.html" class="back-link">&larr; Back to home</a>
   <div class="brand-mini">Devonshire Bakery<span>Order Online</span></div>
   <button class="basket-btn" id="openBasketBtn">
     Basket <span class="basket-count" id="basketCount">0</span>
@@ -477,31 +477,19 @@ const IMG = {
 /* ---------- MENU DATA ---------- */
 const MENU = [
   { id:"bread", label:"Bread", img: IMG.bread, items:[
-    ["Medium White Barm",1.00],["Medium Harvester Barm",1.00],["White Bloomer 400g",3.25],
-    ["White Bloomer 800g",4.45],["White Tin 800g",4.45],["Harvester Bloomer 400g",3.45],
-    ["Harvester Tin 800g",4.95],["Sourdough 800g",5.95],["Sourdough 600g",4.50],
+    ["Medium White Barm",1.00],["Medium Harvester Barm",1.00],
+    ["White Bloomer 800g",4.45],["Harvester Bloomer 400g",3.45],
+    ["Sourdough 600g",4.50],
     ["Focaccia Herb 270g",3.95],["Wholemeal Pan 400g (Tue/Thu/Sat)",3.25],
-    ["Wholemeal Tin 800g (pre-order)",4.95],["Spelt & Honey 400g (Friday)",3.95],
-    ["Sunflower & Rye 400g (Wednesday)",3.95],["Multigrain Tin 800g (Saturday)",5.95],
     ["Baguette",2.95],["400g Seeded Loaf (Gluten Free)",5.95],
-    ["800g Seeded Loaf (Gluten Free)",9.50],["Sourdough Pizza Ball (Frozen)",2.00]
+    ["Sourdough Pizza Ball (Frozen)",2.00]
   ]},
   { id:"savouries", label:"Savouries", img: IMG.savoury, items:[
-    ["Beef Pie or Pork Pie",3.50],["Cornish Roll",5.25],["Sausage Roll",3.45],
+    ["Beef Pie or Pork Pie",3.50],["Sausage Roll",3.45],
     ["Pork & Apple Roll",3.65],["Spiced Chutney Sausage Roll",3.65],["Cheese & Bacon Turnover",3.95],
-    ["Cheese & Onion Pasty",3.75],["Spinach & Cheese Roll",3.45],["Pizza Slice",3.60],
-    ["Potato Cake",1.75],["Potato Cake Large, Bacon, Cheese & Tomato",4.45],
-    ["Potato Cake Large, Leek & Cheese",4.45],["Potato & Meat Pie",4.45],
-    ["Steak & Stilton Pie",4.90],["Steak & Onion Pie",4.45],["Chicken, Ham & Leek Pasty",4.45],
-    ["Hot Pot",7.95]
-  ]},
-  { id:"pies", label:"Pies, Quiches & Bakes", img: IMG.savoury, note:"Plate pies, quiches and homemade lasagne — ask in-store for daily flavours.", items:[
-    ["Plate Meat Pie 9\" (Potato&Meat/Steak&Onion/Chicken,Ham&Leek/Cheese&Onion)",11.95],
-    ["6\" Beef or Pork Pie",26.00],["9\" Beef or Pork Pie",75.00],
-    ["Quiche Individual (Mushroom/Ham&Tomato/Goat's Cheese&Spinach)",4.45],
-    ["Quiche 6\"",11.50],["Quiche 9\"",32.50],
-    ["Hot Pot (per Portion)",7.95],["Beef Lasagne (per Portion)",8.30],["Veg Lasagne (per Portion)",8.10],
-    ["ALL CAPS Coffee Beans (1kg)",28.00]
+    ["Cheese & Onion Pasty",3.75],
+    ["Potato & Meat Pie",4.45],
+    ["Steak & Stilton Pie",4.90],["Steak & Onion Pie",4.45]
   ]},
   { id:"sandwiches", label:"Sandwiches", img: IMG.cafe, note:"Takeaway.", items:[
     ["Ham Sandwich",4.65],["Beef Sandwich",4.65],["Turkey Sandwich",4.65],
@@ -511,8 +499,8 @@ const MENU = [
   ]},
   { id:"breakfast", label:"Breakfast", img: IMG.cafe, note:"Takeaway.", items:[
     ["Bacon OR Sausage Barm",6.25],["Bacon OR Saus & Egg Barm",7.45],
-    ["Bacon AND Sausage Sandwich",8.50],["Bacon, Saus AND Egg Sandwich",9.70],
-    ["Full English Breakfast",12.95],["Big English Breakfast",15.50],["Veggie Breakfast",12.95]
+    ["Bacon AND Sausage Sandwich",8.50],
+    ["Full English Breakfast",12.95],["Veggie Breakfast",12.95]
   ]},
   { id:"drinks", label:"Drinks", img: IMG.cafe, items:[
     ["Americano",3.50],["Cappuccino",3.95],["Mocha",4.00],["Latte",3.95],["Flat White",3.80],
