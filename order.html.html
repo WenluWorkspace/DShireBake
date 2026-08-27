@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Online — Devonshire Bakery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --slate: #4A6577;
+    --slate-dark: #2C3E48;
+    --slate-deep: #1D2C33;
+    --cream: #F2ECE0;
+    --cream-dim: #DCD4C4;
+    --cream-panel: #FBF8F2;
+    --gold: #C79A44;
+    --gold-bright: #E0B563;
+    --line: #E4DCCB;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--slate-deep);
+    -webkit-font-smoothing:antialiased;
+    padding-bottom: 40px;
+  }
+  a{ text-decoration:none; color:inherit; }
+  img{ display:block; width:100%; height:100%; object-fit:cover; }
+
+  /* HEADER */
+  header{
+    background: var(--slate-deep);
+    padding: 16px clamp(18px,5vw,48px);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position: sticky;
+    top:0;
+    z-index: 50;
+  }
+  .back-link{
+    color: var(--cream-dim);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .back-link:hover{ color: var(--gold-bright); }
+  .brand-mini{
+    font-family:'Fraunces', serif;
+    color: var(--cream);
+    font-size: 1.05rem;
+    text-align:center;
+  }
+  .brand-mini span{
+    display:block;
+    font-family:'Inter', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color: var(--gold-bright);
+    margin-top:2px;
+  }
+  .basket-btn{
+    position: relative;
+    background: var(--gold);
+    color: var(--slate-deep);
+    border:none;
+    border-radius: 2px;
+    padding: 10px 16px;
+    font-size: 0.78rem;
+    font-weight:600;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .basket-btn:hover{ background: var(--gold-bright); }
+  .basket-count{
+    background: var(--slate-deep);
+    color: var(--cream);
+    font-size: 0.7rem;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 0 4px;
+  }
+
+  /* PAGE INTRO */
+  .page-intro{
+    padding: 34px clamp(18px,5vw,48px) 10px;
+    max-width: 900px;
+  }
+  .page-intro .eyebrow{
+    font-size: 0.7rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color: var(--gold);
+    font-weight:600;
+  }
+  .page-intro h1{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+    margin-top: 8px;
+  }
+  .page-intro p{
+    margin-top: 8px;
+    color: var(--slate);
+    font-size: 0.92rem;
+    max-width: 560px;
+  }
+
+  /* CATEGORY NAV */
+  .cat-nav{
+    position: sticky;
+    top: 61px;
+    z-index: 40;
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+    padding: 12px clamp(18px,5vw,48px);
+    display:flex;
+    gap: 10px;
+    overflow-x:auto;
+    scrollbar-width: none;
+  }
+  .cat-nav::-webkit-scrollbar{ display:none; }
+  .cat-pill{
+    flex: 0 0 auto;
+    background: var(--cream-panel);
+    border: 1px solid var(--line);
+    color: var(--slate-dark);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 9px 16px;
+    border-radius: 999px;
+    cursor:pointer;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .cat-pill.active{
+    background: var(--slate-deep);
+    border-color: var(--slate-deep);
+    color: var(--cream);
+  }
+
+  /* CATEGORY SECTIONS */
+  main{ padding: 8px clamp(18px,5vw,48px) 0; max-width: 980px; }
+  .category-section{ padding-top: 38px; scroll-margin-top: 150px; }
+  .category-section h2{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+  .category-note{
+    font-size: 0.82rem;
+    color: var(--slate);
+    margin-bottom: 16px;
+  }
+
+  .item-row{
+    display:flex;
+    align-items:center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .item-photo{
+    width: 68px;
+    height: 68px;
+    border-radius: 8px;
+    overflow:hidden;
+    flex: 0 0 auto;
+    background: var(--cream-dim);
+  }
+  .item-info{ flex: 1 1 auto; min-width: 0; }
+  .item-info .name{
+    font-weight: 600;
+    font-size: 0.94rem;
+    line-height: 1.3;
+  }
+  .item-info .price{
+    color: var(--slate);
+    font-size: 0.85rem;
+    margin-top: 2px;
+  }
+  .item-controls{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    flex: 0 0 auto;
+  }
+  .qty-stepper{
+    display:flex;
+    align-items:center;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow:hidden;
+  }
+  .qty-stepper button{
+    width: 28px;
+    height: 30px;
+    border:none;
+    background: var(--cream-panel);
+    color: var(--slate-deep);
+    font-size: 1rem;
+    cursor:pointer;
+    line-height:1;
+  }
+  .qty-stepper button:hover{ background: var(--cream-dim); }
+  .qty-stepper input{
+    width: 30px;
+    text-align:center;
+    border:none;
+    background:none;
+    font-size: 0.86rem;
+    color: var(--slate-deep);
+    -moz-appearance: textfield;
+  }
+  .qty-stepper input::-webkit-outer-spin-button,
+  .qty-stepper input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+
+  .add-btn{
+    background: var(--slate-deep);
+    color: var(--cream);
+    border:none;
+    padding: 8px 14px;
+    font-size: 0.72rem;
+    font-weight:600;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    border-radius: 4px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .add-btn:hover{ background: var(--slate); }
+  .add-btn.added{ background: var(--gold); color: var(--slate-deep); }
+
+  .poa-tag{
+    font-size: 0.72rem;
+    color: var(--slate);
+    font-style: italic;
+  }
+
+  /* BASKET DRAWER */
+  .basket-scrim{
+    position: fixed; inset:0;
+    background: rgba(0,0,0,0.35);
+    opacity:0; pointer-events:none;
+    transition: opacity 0.3s ease;
+    z-index: 190;
+  }
+  .basket-scrim.open{ opacity:1; pointer-events:auto; }
+
+  .basket-drawer{
+    position: fixed;
+    top:0; right:0;
+    height: 100svh;
+    width: min(90vw, 400px);
+    background: var(--cream-panel);
+    z-index: 200;
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+    display:flex;
+    flex-direction:column;
+    box-shadow: -12px 0 32px rgba(0,0,0,0.2);
+  }
+  .basket-drawer.open{ transform: translateX(0); }
+
+  .basket-head{
+    padding: 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom: 1px solid var(--line);
+  }
+  .basket-head h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size: 1.2rem;
+  }
+  .basket-close{
+    background:none; border:none;
+    font-size: 1.3rem;
+    cursor:pointer;
+    color: var(--slate-deep);
+    line-height:1;
+    padding: 4px;
+  }
+
+  .basket-items{
+    flex:1;
+    overflow-y:auto;
+    padding: 8px 20px;
+  }
+  .basket-empty{
+    padding: 40px 0;
+    text-align:center;
+    color: var(--slate);
+    font-size: 0.88rem;
+  }
+  .basket-line{
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .basket-line .line-info{ flex:1; min-width:0; }
+  .basket-line .line-name{ font-size: 0.86rem; font-weight:600; }
+  .basket-line .line-price{ font-size: 0.78rem; color: var(--slate); margin-top:2px; }
+  .basket-line .line-remove{
+    background:none; border:none;
+    color: var(--slate);
+    font-size: 0.72rem;
+    text-decoration: underline;
+    cursor:pointer;
+    padding: 0;
+    margin-top: 4px;
+  }
+
+  .basket-foot{
+    border-top: 1px solid var(--line);
+    padding: 18px 20px 22px;
+  }
+  .basket-subtotal{
+    display:flex;
+    justify-content:space-between;
+    font-size: 0.95rem;
+    font-weight:600;
+    margin-bottom: 14px;
+  }
+  .checkout-btn{
+    width:100%;
+    background: var(--gold);
+    color: var(--slate-deep);
+    border:none;
+    padding: 14px;
+    font-size: 0.82rem;
+    font-weight:700;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    border-radius: 4px;
+    cursor:pointer;
+  }
+  .checkout-btn:hover{ background: var(--gold-bright); }
+  .checkout-btn:disabled{ opacity:0.5; cursor:not-allowed; }
+
+  /* CHECKOUT MODAL */
+  .modal-scrim{
+    position: fixed; inset:0;
+    background: rgba(0,0,0,0.45);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index: 300;
+    padding: 20px;
+  }
+  .modal-scrim.open{ display:flex; }
+  .modal-box{
+    background: var(--cream-panel);
+    max-width: 380px;
+    width:100%;
+    border-radius: 6px;
+    padding: 28px 24px;
+    text-align:center;
+  }
+  .modal-box h3{
+    font-family:'Fraunces', serif;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+  .modal-box p{
+    font-size: 0.88rem;
+    color: var(--slate);
+    line-height: 1.5;
+    margin-bottom: 18px;
+  }
+  .modal-box .modal-total{
+    font-weight:700;
+    font-size: 1.1rem;
+    color: var(--slate-deep);
+    margin-bottom: 18px;
+  }
+  .modal-close-btn{
+    background: var(--slate-deep);
+    color: var(--cream);
+    border:none;
+    padding: 12px 24px;
+    font-size: 0.78rem;
+    font-weight:600;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    border-radius: 4px;
+    cursor:pointer;
+  }
+  .modal-note{
+    font-size: 0.7rem;
+    color: var(--slate);
+    margin-top: 14px;
+    opacity: 0.8;
+  }
+
+  @media (max-width:600px){
+    .item-photo{ width:56px; height:56px; }
+    .item-controls{ flex-direction:column; align-items:flex-end; gap:6px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="devonshire-bakery-homepage.html" class="back-link">&larr; Back to home</a>
+  <div class="brand-mini">Devonshire Bakery<span>Order Online</span></div>
+  <button class="basket-btn" id="openBasketBtn">
+    Basket <span class="basket-count" id="basketCount">0</span>
+  </button>
+</header>
+
+<div class="page-intro">
+  <div class="eyebrow">Full Menu</div>
+  <h1>Everything from the counter, ready to order.</h1>
+  <p>Browse by category, set your quantities, and add to your basket. This is a practice ordering flow — no payment is actually taken.</p>
+</div>
+
+<nav class="cat-nav" id="catNav"></nav>
+
+<main id="menuMain"></main>
+
+<div class="basket-scrim" id="basketScrim"></div>
+<aside class="basket-drawer" id="basketDrawer">
+  <div class="basket-head">
+    <h3>Your Basket</h3>
+    <button class="basket-close" id="closeBasketBtn" aria-label="Close basket">&times;</button>
+  </div>
+  <div class="basket-items" id="basketItems"></div>
+  <div class="basket-foot">
+    <div class="basket-subtotal">
+      <span>Subtotal</span>
+      <span id="basketSubtotal">£0.00</span>
+    </div>
+    <button class="checkout-btn" id="checkoutBtn" disabled>Checkout</button>
+  </div>
+</aside>
+
+<div class="modal-scrim" id="modalScrim">
+  <div class="modal-box">
+    <h3>Order placed!</h3>
+    <p>Thanks for your order — this is a practice checkout, so nothing was actually charged or sent anywhere.</p>
+    <div class="modal-total" id="modalTotal">£0.00</div>
+    <button class="modal-close-btn" id="modalCloseBtn">Done</button>
+    <div class="modal-note">Devonshire Bakery demo — no real transaction occurs.</div>
+  </div>
+</div>
+
+<script>
+/* ---------- IMAGE GROUPS (real stock photos, reused per group) ---------- */
+const IMG = {
+  bread: "https://images.pexels.com/photos/10202998/pexels-photo-10202998.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop",
+  savoury: "https://images.pexels.com/photos/38733142/pexels-photo-38733142.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop",
+  cafe: "https://images.pexels.com/photos/24796900/pexels-photo-24796900.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop",
+  cakes: "https://images.pexels.com/photos/31332192/pexels-photo-31332192.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop"
+};
+
+/* ---------- MENU DATA ---------- */
+const MENU = [
+  { id:"bread", label:"Bread", img: IMG.bread, items:[
+    ["Medium White Barm",1.00],["Medium Harvester Barm",1.00],["White Bloomer 400g",3.25],
+    ["White Bloomer 800g",4.45],["White Tin 800g",4.45],["Harvester Bloomer 400g",3.45],
+    ["Harvester Tin 800g",4.95],["Sourdough 800g",5.95],["Sourdough 600g",4.50],
+    ["Focaccia Herb 270g",3.95],["Wholemeal Pan 400g (Tue/Thu/Sat)",3.25],
+    ["Wholemeal Tin 800g (pre-order)",4.95],["Spelt & Honey 400g (Friday)",3.95],
+    ["Sunflower & Rye 400g (Wednesday)",3.95],["Multigrain Tin 800g (Saturday)",5.95],
+    ["Baguette",2.95],["400g Seeded Loaf (Gluten Free)",5.95],
+    ["800g Seeded Loaf (Gluten Free)",9.50],["Sourdough Pizza Ball (Frozen)",2.00]
+  ]},
+  { id:"savouries", label:"Savouries", img: IMG.savoury, items:[
+    ["Beef Pie or Pork Pie",3.50],["Cornish Roll",5.25],["Sausage Roll",3.45],
+    ["Pork & Apple Roll",3.65],["Spiced Chutney Sausage Roll",3.65],["Cheese & Bacon Turnover",3.95],
+    ["Cheese & Onion Pasty",3.75],["Spinach & Cheese Roll",3.45],["Pizza Slice",3.60],
+    ["Potato Cake",1.75],["Potato Cake Large, Bacon, Cheese & Tomato",4.45],
+    ["Potato Cake Large, Leek & Cheese",4.45],["Potato & Meat Pie",4.45],
+    ["Steak & Stilton Pie",4.90],["Steak & Onion Pie",4.45],["Chicken, Ham & Leek Pasty",4.45],
+    ["Hot Pot",7.95]
+  ]},
+  { id:"pies", label:"Pies, Quiches & Bakes", img: IMG.savoury, note:"Plate pies, quiches and homemade lasagne — ask in-store for daily flavours.", items:[
+    ["Plate Meat Pie 9\" (Potato&Meat/Steak&Onion/Chicken,Ham&Leek/Cheese&Onion)",11.95],
+    ["6\" Beef or Pork Pie",26.00],["9\" Beef or Pork Pie",75.00],
+    ["Quiche Individual (Mushroom/Ham&Tomato/Goat's Cheese&Spinach)",4.45],
+    ["Quiche 6\"",11.50],["Quiche 9\"",32.50],
+    ["Hot Pot (per Portion)",7.95],["Beef Lasagne (per Portion)",8.30],["Veg Lasagne (per Portion)",8.10],
+    ["ALL CAPS Coffee Beans (1kg)",28.00]
+  ]},
+  { id:"sandwiches", label:"Sandwiches", img: IMG.cafe, note:"Takeaway.", items:[
+    ["Ham Sandwich",4.65],["Beef Sandwich",4.65],["Turkey Sandwich",4.65],
+    ["Mature Cheese Sandwich",4.65],["Cheese & Onion Mix Sandwich",4.65],["Egg Mayo Sandwich",4.65],
+    ["Tuna Mayo Sandwich",5.50],["Chicken Mayo Sandwich",5.50],["Prawn Mayo Sandwich",5.50],
+    ["Coronation Chicken Sandwich",5.50],["Extra Filling",2.50],["Add Salad",0.50]
+  ]},
+  { id:"breakfast", label:"Breakfast", img: IMG.cafe, note:"Takeaway.", items:[
+    ["Bacon OR Sausage Barm",6.25],["Bacon OR Saus & Egg Barm",7.45],
+    ["Bacon AND Sausage Sandwich",8.50],["Bacon, Saus AND Egg Sandwich",9.70],
+    ["Full English Breakfast",12.95],["Big English Breakfast",15.50],["Veggie Breakfast",12.95]
+  ]},
+  { id:"drinks", label:"Drinks", img: IMG.cafe, items:[
+    ["Americano",3.50],["Cappuccino",3.95],["Mocha",4.00],["Latte",3.95],["Flat White",3.80],
+    ["Espresso",3.25],["Hot Chocolate",3.95],["Tea",3.65],["Milk Substitute",0.40],
+    ["Canned Drinks",2.20],["Bottled Water (Still or Sparkling)",2.20]
+  ]},
+  { id:"fruitpies", label:"Fruit Pies", img: IMG.cakes, items:[
+    ["Plate Fruit Pie 9\" (Apple/Apricot/Blackcurrant/Rhubarb)",10.95],
+    ["Individual Fruit Pie (all flavours)",2.95]
+  ]},
+  { id:"loafcakes", label:"Loaf & Slab Cakes", img: IMG.cakes, items:[
+    ["Lemon Drizzle",6.95],["Coffee & Walnut Loaf Cake",6.95],["Battenberg",7.25],
+    ["Cherry Slab Cake",6.75],["Victoria Sponge Slab (jam & buttercream)",6.75],
+    ["Parkin (seasonal)",6.50],["Lemon or Jam Swiss Roll",5.95]
+  ]},
+  { id:"cakeslices", label:"Cake Slices", img: IMG.cakes, items:[
+    ["Coffee & Walnut Cake Slice",4.20],["Carrot Cake Slice",4.25],["Lemon Drizzle Cake Slice",3.95],
+    ["Victoria Sponge Cake Slice",3.75],["Chocolate Fudge Cake Slice",4.20]
+  ]},
+  { id:"creamcakes", label:"Cream Cakes", img: IMG.cakes, items:[
+    ["Vanilla Slice",3.50],["Chocolate Eclair",3.95],["Rhubarb & Custard Mille Feuille",4.10],
+    ["Cream Meringue",3.95],["Continental Mixed Fruit Flan",5.95],["Continental Strawberry Flan",5.95],
+    ["Apple Charlotte",3.95],["Blackcurrant Charlotte",3.95],["Beesting",4.10],
+    ["Cream Scone",3.95],["Iced Bun",3.95],["Caramel Choux Bun",4.10],
+    ["Paris Brest",4.10],["Lemon Cheesecake",4.35]
+  ]},
+  { id:"fancycakes", label:"Fancy Cakes", img: IMG.cakes, items:[
+    ["Butterfly Cupcake",3.45],["Eccles Cake",2.50],["Caramel Shortbread",3.45],
+    ["Cherry Bakewell",3.45],["Chocolate Crunch",3.45],["Chocolate Brownie (Gluten Free)",3.45],
+    ["Chocolate Chip Muffin (Gluten Free)",3.65],["Giant Choc Chip Cookie",3.95],
+    ["Chocolate Buttercream Slice",3.45],["Florentine",4.50],["Frangipane Apricot 3\"",5.25],
+    ["Gingerbread Figure",3.30],["Jam or Lemon Tart",2.20],["Meringue Buttercream",3.45],
+    ["Pastel De Nata (Portuguese Tart)",2.50],["Raspberry & White Choc Blondie",3.45],
+    ["Rum Truffle",3.45],["School Cake",2.35],["Schlossberg",4.15],["Smartie Face Cupcake",2.75],
+    ["Swiss Finger",3.90],["Mince Pie (seasonal)",1.70],["Brandy Butter Mince Pie (seasonal)",2.90],
+    ["Viennese Mince Pie (seasonal)",3.00],["Chocolate Brownie Bites Pot",8.50],
+    ["Mixed Fancy Cake Bite Pot",10.50]
+  ]},
+  { id:"morning", label:"Morning Goods", img: IMG.cakes, items:[
+    ["Croissant",1.75],["Pain au Chocolat",2.25],["Scone (Plain, Fruit or Cherry)",1.65],
+    ["Danish Pastry (Fruit/Traditional)",2.75],["Fruit Iced Bun",2.00],["Egg Custard Tart",2.95],
+    ["Apple Tart",2.95],["Blackcurrant Tart",2.95],["Rhubarb Tart",2.95],["Teacake",1.80],
+    ["Hot Cross Bun (seasonal)",1.25]
+  ]},
+  { id:"biscuits", label:"Biscuits", img: IMG.cakes, items:[
+    ["Gingerbread Biscuits",4.50],["Honey, Butter & Oatmeal Biscuits",6.50],["Shortbread Biscuits",5.95]
+  ]},
+  { id:"celebration", label:"Celebration Cakes", img: IMG.cakes, note:"Sugar paste covered, with writing — prices starting from.", items:[
+    ["6\" Round Celebration Cake",37.00],["9\" Round Celebration Cake",59.50],
+    ["12\" Square Celebration Cake",116.50],["14\" Square Celebration Cake",158.50],
+    ["Cupcakes (each, from)",3.95]
+  ]},
+  { id:"sandwichcakes", label:"Sandwich Cakes", img: IMG.cakes, items:[
+    ["Chocolate Fudge Cake 6\"",15.50],["Chocolate Fudge Cake 9\"",35.95],
+    ["Vic Sandwich Cake 6\"",12.50],["Vic Sandwich Cake 9\"",28.95],
+    ["Carrot Cake 9\"",55.00],["Lemon Drizzle Cake 9\"",46.50],["Coffee & Walnut Cake 9\"",39.95]
+  ]},
+  { id:"largecream", label:"Large Cream Cakes", img: IMG.cakes, items:[
+    ["9\" Beesting",27.95],["9\" Egg Custard Tart",22.50],["9\" Mixed Fruit Flan",35.95],
+    ["Vanilla Slice Cake",null],["6\" Victoria Sponge with Cream",16.50],
+    ["9\" Victoria Sponge with Cream",36.50],["Rich Fruit Cake",null],["9\" Lemon Cheesecake",39.00]
+  ]},
+  { id:"extras", label:"Cakes Extras", img: IMG.cakes, items:[
+    ["Photo Print",15.00],["Plaque with Writing",7.50]
+  ]}
+];
+
+/* ---------- STATE (in-memory only, no persistence) ---------- */
+let basket = {}; // key: "categoryId|itemName" -> {name, price, qty}
+
+/* ---------- BUILD NAV + SECTIONS ---------- */
+const catNav = document.getElementById("catNav");
+const menuMain = document.getElementById("menuMain");
+
+MENU.forEach(cat => {
+  const pill = document.createElement("button");
+  pill.className = "cat-pill";
+  pill.textContent = cat.label;
+  pill.addEventListener("click", () => {
+    document.getElementById("sec-" + cat.id).scrollIntoView({behavior:"smooth", block:"start"});
+  });
+  catNav.appendChild(pill);
+
+  const section = document.createElement("section");
+  section.className = "category-section";
+  section.id = "sec-" + cat.id;
+  section.innerHTML = `<h2>${cat.label}</h2>` + (cat.note ? `<div class="category-note">${cat.note}</div>` : "");
+
+  cat.items.forEach(([name, price]) => {
+    const key = cat.id + "|" + name;
+    const row = document.createElement("div");
+    row.className = "item-row";
+
+    if(price === null){
+      row.innerHTML = `
+        <div class="item-photo"><img src="${cat.img}" alt="${cat.label}" loading="lazy"></div>
+        <div class="item-info">
+          <div class="name">${name}</div>
+          <div class="price">Price on request</div>
+        </div>
+        <div class="item-controls"><span class="poa-tag">Contact bakery for price</span></div>
+      `;
+    } else {
+      row.innerHTML = `
+        <div class="item-photo"><img src="${cat.img}" alt="${cat.label}" loading="lazy"></div>
+        <div class="item-info">
+          <div class="name">${name}</div>
+          <div class="price">£${price.toFixed(2)}</div>
+        </div>
+        <div class="item-controls">
+          <div class="qty-stepper">
+            <button type="button" class="qty-minus">&minus;</button>
+            <input type="number" class="qty-input" value="1" min="1" max="99">
+            <button type="button" class="qty-plus">&plus;</button>
+          </div>
+          <button type="button" class="add-btn">Add</button>
+        </div>
+      `;
+      const qtyInput = row.querySelector(".qty-input");
+      row.querySelector(".qty-minus").addEventListener("click", () => {
+        qtyInput.value = Math.max(1, parseInt(qtyInput.value || 1) - 1);
+      });
+      row.querySelector(".qty-plus").addEventListener("click", () => {
+        qtyInput.value = Math.min(99, parseInt(qtyInput.value || 1) + 1);
+      });
+      qtyInput.addEventListener("change", () => {
+        let v = parseInt(qtyInput.value);
+        if(isNaN(v) || v < 1) v = 1;
+        if(v > 99) v = 99;
+        qtyInput.value = v;
+      });
+      const addBtn = row.querySelector(".add-btn");
+      addBtn.addEventListener("click", () => {
+        const qty = parseInt(qtyInput.value) || 1;
+        if(basket[key]){
+          basket[key].qty += qty;
+        } else {
+          basket[key] = { name, price, qty };
+        }
+        renderBasket();
+        addBtn.textContent = "Added ✓";
+        addBtn.classList.add("added");
+        setTimeout(() => { addBtn.textContent = "Add"; addBtn.classList.remove("added"); }, 1100);
+      });
+    }
+    section.appendChild(row);
+  });
+
+  menuMain.appendChild(section);
+});
+
+/* Highlight active pill on scroll */
+const pills = Array.from(catNav.children);
+const sections = MENU.map(c => document.getElementById("sec-" + c.id));
+function updateActivePill(){
+  let idx = 0;
+  const scrollPos = window.scrollY + 170;
+  sections.forEach((sec, i) => { if(sec.offsetTop <= scrollPos) idx = i; });
+  pills.forEach((p,i) => p.classList.toggle("active", i === idx));
+}
+window.addEventListener("scroll", updateActivePill);
+updateActivePill();
+
+/* ---------- BASKET DRAWER ---------- */
+const basketDrawer = document.getElementById("basketDrawer");
+const basketScrim = document.getElementById("basketScrim");
+const basketItemsEl = document.getElementById("basketItems");
+const basketCountEl = document.getElementById("basketCount");
+const basketSubtotalEl = document.getElementById("basketSubtotal");
+const checkoutBtn = document.getElementById("checkoutBtn");
+
+function openBasket(){ basketDrawer.classList.add("open"); basketScrim.classList.add("open"); }
+function closeBasket(){ basketDrawer.classList.remove("open"); basketScrim.classList.remove("open"); }
+document.getElementById("openBasketBtn").addEventListener("click", openBasket);
+document.getElementById("closeBasketBtn").addEventListener("click", closeBasket);
+basketScrim.addEventListener("click", closeBasket);
+document.addEventListener("keydown", e => { if(e.key === "Escape"){ closeBasket(); closeModal(); } });
+
+function renderBasket(){
+  const keys = Object.keys(basket);
+  const totalCount = keys.reduce((sum,k) => sum + basket[k].qty, 0);
+  basketCountEl.textContent = totalCount;
+
+  if(keys.length === 0){
+    basketItemsEl.innerHTML = `<div class="basket-empty">Your basket is empty. Add something delicious from the menu.</div>`;
+    checkoutBtn.disabled = true;
+    basketSubtotalEl.textContent = "£0.00";
+    return;
+  }
+
+  let subtotal = 0;
+  basketItemsEl.innerHTML = "";
+  keys.forEach(key => {
+    const item = basket[key];
+    subtotal += item.price * item.qty;
+    const line = document.createElement("div");
+    line.className = "basket-line";
+    line.innerHTML = `
+      <div class="line-info">
+        <div class="line-name">${item.name}</div>
+        <div class="line-price">£${item.price.toFixed(2)} × ${item.qty} = £${(item.price*item.qty).toFixed(2)}</div>
+        <button type="button" class="line-remove">Remove</button>
+      </div>
+    `;
+    line.querySelector(".line-remove").addEventListener("click", () => {
+      delete basket[key];
+      renderBasket();
+    });
+    basketItemsEl.appendChild(line);
+  });
+  basketSubtotalEl.textContent = "£" + subtotal.toFixed(2);
+  checkoutBtn.disabled = false;
+}
+renderBasket();
+
+/* ---------- CHECKOUT MODAL (mock — no real payment) ---------- */
+const modalScrim = document.getElementById("modalScrim");
+const modalTotal = document.getElementById("modalTotal");
+function openModal(total){
+  modalTotal.textContent = "£" + total.toFixed(2);
+  modalScrim.classList.add("open");
+}
+function closeModal(){ modalScrim.classList.remove("open"); }
+document.getElementById("modalCloseBtn").addEventListener("click", closeModal);
+modalScrim.addEventListener("click", (e) => { if(e.target === modalScrim) closeModal(); });
+
+checkoutBtn.addEventListener("click", () => {
+  const total = Object.values(basket).reduce((sum,i) => sum + i.price*i.qty, 0);
+  openModal(total);
+  basket = {};
+  renderBasket();
+  closeBasket();
+});
+</script>
+</body>
+</html>
